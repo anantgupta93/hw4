@@ -9,7 +9,8 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find(params[:id])
-    @entries = @place.entries.where(user_id: current_user.id)  
+    @entries = @place.entries
+    @entry = Entry.new(place: @place) # For creating a new entry associated with this place
   end
 
   def new

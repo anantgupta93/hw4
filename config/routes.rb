@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root to: "places#index" # Define root route to places#index
   
-  resources :places
-  resources :entries
+  resources :places do
+    resources :entries
+  end
+
   resources :sessions
   resources :users
 

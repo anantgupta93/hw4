@@ -56,15 +56,9 @@ Rails.application.configure do
   
   config.hosts = nil
 
-  # Raises error for missing translations.
-  # config.i18n.raise_on_missing_translations = true
+  # Specify Active Storage service for development environment
+  config.active_storage.service = :local
 
-  # Annotate rendered view with file names.
-  # config.action_view.annotate_rendered_view_with_filenames = true
-
-  # Uncomment if you wish to allow Action Cable access from any origin.
-  # config.action_cable.disable_request_forgery_protection = true
-  
   # So we don't get the "Cannot render console" message in Gitpod
   config.web_console.whiny_requests = false
 end

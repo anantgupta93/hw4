@@ -8,7 +8,8 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @entries = @place.entries
+    @place = Place.find(params[:id])
+    @entries = @place.entries.where(user_id: current_user.id)  
   end
 
   def new

@@ -1,16 +1,27 @@
-<h1><%= @place["name"] %></h1>
+<!-- app/views/places/show.html.erb -->
 
-<h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
-<% end %>
+<h1><%= @place.name %></h1>
 
-<p>
-  <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
-</p>
+<div>
+  <!-- Display the name of the city -->
+  <p><strong>Name:</strong> <%= @place.name %></p>
+</div>
 
-<p>
-  <a href="/places">Back to All Places</a>
-</p>
+<div>
+  <!-- Add a button to create a new post -->
+  <%= link_to 'Add New Post', new_place_entry_path(@place), class: 'btn btn-primary' %>
+</div>
+
+<div>
+  <!-- Loop through the entries associated with the place and display them -->
+  <% @entries.each do |entry| %>
+    <div>
+      <h2><%= entry.title %></h2>
+      <p><%= entry.description %></p>
+      <p>Occurred on: <%= entry.occurred_on %></p>
+      <% if entry.image.attached? %>
+        <%= image_tag entry.image %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

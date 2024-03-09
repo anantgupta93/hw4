@@ -1,7 +1,8 @@
 class PlacesController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
   before_action :set_place, only: [:show]
-before_action :set_user, only: [:create, :new]
+  before_action :set_user, only: [:create, :new]
+
   def index
     @places = Place.all
   end
@@ -31,15 +32,15 @@ before_action :set_user, only: [:create, :new]
   end
 
   def place_params
-    params.require(:place).permit(:name, :description, :location)
+    params.require(:place).permit(:name)
   end
 
   def set_user
-    @user = User.find(session[:user_id]) if session[:user_id]
+    @user = User.find_by(id: session[:user_id])
+    redirect_to login_path, alert: 'You must be logged in to access this section.' unless @user
   end
 
   def authenticate_user
     set_user
-    redirect_to login_path, alert: 'You must be logged in to access this section.' unless @user
   end
 end

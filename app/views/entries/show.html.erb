@@ -1,0 +1,13 @@
+<!-- app/views/entries/show.html.erb -->
+<h1>Entries for <%= @place.name %></h1>
+
+<% @entries.each do |entry| %>
+  <div class="entry">
+    <h2><%= entry.title %></h2>
+    <p><%= entry.description %></p>
+    <p>Occurred on: <%= entry.occurred_on %></p>
+    <% if entry.image.attached? %>
+      <%= image_tag entry.image %>
+    <% end %>
+  </div>
+<% end %>

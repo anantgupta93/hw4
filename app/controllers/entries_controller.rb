@@ -46,9 +46,10 @@ class EntriesController < ApplicationController
   end
 
   def set_user_entry
-    @entry = current_user.entries.find_by(id: params[:id], place_id: @place.id)
+    @entry = current_user.entries.find_by(id: params[:id])
     redirect_to root_path, alert: 'Entry not found' unless @entry
   end
+   
 
   def entry_params
     params.require(:entry).permit(:title, :description, :occurred_on, :image)

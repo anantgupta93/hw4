@@ -1,17 +1,15 @@
-<!-- app/views/entries/new.html.erb -->
-<h1>New Entry</h1>
-
-<%= form_with(model: [@place, @entry], local: true) do |form| %>
+<!-- app/views/entries/_form.html.erb -->
+<%= form_with(model: @entry, url: place_entries_path(@place), local: true) do |form| %>
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
-
+  
   <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description %>
   </div>
-
+  
   <div class="field">
     <%= form.label :occurred_on %>
     <%= form.date_field :occurred_on %>
@@ -21,6 +19,6 @@
     <%= form.label :image %>
     <%= form.file_field :image %>
   </div>
-
+  
   <%= form.submit %>
 <% end %>

@@ -1,13 +1,13 @@
-# app/controllers/entries_controller.rb
 class EntriesController < ApplicationController
   before_action :set_place
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_entry, only: [:show, :edit, :update, :destroy]
 
   def index
-    @entries = @place.entries
+    @entries = current_user.entries.where(place: @place)
   end
 
   def show
+    redirect_to root_path unless @entry.user == current_user
   end
 
   def new
@@ -45,11 +45,12 @@ class EntriesController < ApplicationController
     @place = Place.find(params[:place_id])
   end
 
-  def set_entry
-    @entry = @place.entries.find(params[:id])
+  def set_user_entry
+    @entry = current_user.entries.find_by(id: params[:id], place_id: @place.id)
+    redirect_to root_path, alert: 'Entry not found' unless @entry
   end
 
   def entry_params
-    params.require(:entry).permit(:title, :description, :occurred_on)
+    params.require(:entry).permit(:title, :description, :occurred_on, :image)
   end
 end
